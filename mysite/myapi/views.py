@@ -4,120 +4,183 @@ from .serializers import AuthorSerializer, CategorySerializer, BookSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView, DestroyAPIView, UpdateAPIView
 # class AuthorViewSet(ModelViewSet):
 #     queryset = Author.objects.all()
 #     serializer_class = AuthorSerializer
 
-class AuthorView(APIView):
+# class AuthorView(APIView):
+#
+#     def get_object(self, pk):
+#         try:
+#             model = Author.objects.get(pk=pk)
+#         except Exception:
+#             raise NotFound("Author not found -----------")
+#         return model
+#
+#     def get(self, request, *args, **kwargs):
+#         if kwargs.get("pk"):
+#             author = self.get_object(kwargs.get("pk"))
+#             serializer = AuthorSerializer(author, many=False)
+#             return Response(serializer.data)
+#         else:
+#             authors = Author.objects.all()
+#             serializer = AuthorSerializer(authors, many=True)
+#             return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = AuthorSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def put(self, request, *args, **kwargs):
+#         author = self.get_object(kwargs.get("pk"))
+#         serializer = AuthorSerializer(data=request.data, instance=author)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def delete(self, request, *args, **kwargs):
+#         author = self.get_object(kwargs.get("pk"))
+#         author.delete()
+#         return Response({"state": "deleted"})
+#
+# class CategoryView(APIView):
+#
+#     def get_object(self, pk):
+#         try:
+#             model = Category.objects.get(pk=pk)
+#         except Exception:
+#             return NotFound("Ma'lumot mavjud emas")
+#
+#         return model
+#
+#     def get(self, request, *args, **kwargs):
+#         if kwargs.get("pk"):
+#             model = self.get_object(kwargs.get("pk"))
+#             serializer = CategorySerializer(model, many=False)
+#             return Response(serializer.data)
+#         else:
+#             model = Category.objects.all()
+#             serializer = CategorySerializer(model, many=True)
+#             return Response(serializer.data)
+#
+#     def put(self, request, *args, **kwargs):
+#         model = self.get_object(kwargs.get("pk"))
+#         serializer = CategorySerializer(data=request.data, instance=model)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = CategorySerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def delete(self, request, *args, **kwargs):
+#         model = self.get_object(kwargs.get("pk"))
+#         model.delete()
+#         return Response({"state":"deleted"})
+#
+# class BookView(APIView):
+#     def get_object(self, pk):
+#             try:
+#                 model = Book.objects.get(pk=pk)
+#             except Exception:
+#                 return NotFound("Ma'lumot mavjud emas")
+#
+#             return model
+#
+#     def get(self, request, *args, **kwargs):
+#         if kwargs.get("pk"):
+#             model = self.get_object(kwargs.get("pk"))
+#             serializer = BookSerializer(model, many=False)
+#             return Response(serializer.data)
+#         else:
+#             model = Book.objects.all()
+#             serializer = BookSerializer(model, many=True)
+#             return Response(serializer.data)
+#
+#     def put(self, request, *args, **kwargs):
+#         model = self.get_object(kwargs.get("pk"))
+#         serializer = BookSerializer(data=request.data, instance=model)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def post(self, request):
+#         serializer = BookSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response(serializer.data)
+#
+#     def delete(self, request, *args, **kwargs):
+#         model = self.get_object(kwargs.get("pk"))
+#         model.delete()
+#         return Response({"state": "deleted"})
 
-    def get_object(self, pk):
-        try:
-            model = Author.objects.get(pk=pk)
-        except Exception:
-            raise NotFound("Author not found -----------")
-        return model
+class AuthorListView(ListAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
-    def get(self, request, *args, **kwargs):
-        if kwargs.get("pk"):
-            author = self.get_object(kwargs.get("pk"))
-            serializer = AuthorSerializer(author, many=False)
-            return Response(serializer.data)
-        else:
-            authors = Author.objects.all()
-            serializer = AuthorSerializer(authors, many=True)
-            return Response(serializer.data)
+class AuthorRetrieveView(RetrieveAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
-    def post(self, request):
-        serializer = AuthorSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+class AuthorDestroyView(DestroyAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
-    def put(self, request, *args, **kwargs):
-        author = self.get_object(kwargs.get("pk"))
-        serializer = AuthorSerializer(data=request.data, instance=author)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+class AuthorCreateView(CreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
-    def delete(self, request, *args, **kwargs):
-        author = self.get_object(kwargs.get("pk"))
-        author.delete()
-        return Response({"state": "deleted"})
+class AuthorUpdateView(UpdateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
 
-class CategoryView(APIView):
+#################################
 
-    def get_object(self, pk):
-        try:
-            model = Category.objects.get(pk=pk)
-        except Exception:
-            return NotFound("Ma'lumot mavjud emas")
-
-        return model
-
-    def get(self, request, *args, **kwargs):
-        if kwargs.get("pk"):
-            model = self.get_object(kwargs.get("pk"))
-            serializer = CategorySerializer(model, many=False)
-            return Response(serializer.data)
-        else:
-            model = Category.objects.all()
-            serializer = CategorySerializer(model, many=True)
-            return Response(serializer.data)
-
-    def put(self, request, *args, **kwargs):
-        model = self.get_object(kwargs.get("pk"))
-        serializer = CategorySerializer(data=request.data, instance=model)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    def post(self, request):
-        serializer = CategorySerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
-
-    def delete(self, request, *args, **kwargs):
-        model = self.get_object(kwargs.get("pk"))
-        model.delete()
-        return Response({"state":"deleted"})
+class CategoryListView(ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 
-class BookView(APIView):
-    def get_object(self, pk):
-            try:
-                model = Book.objects.get(pk=pk)
-            except Exception:
-                return NotFound("Ma'lumot mavjud emas")
+class CategoryRetrieveView(RetrieveAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
-            return model
+class CategoryDestroyView(DestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
-    def get(self, request, *args, **kwargs):
-        if kwargs.get("pk"):
-            model = self.get_object(kwargs.get("pk"))
-            serializer = BookSerializer(model, many=False)
-            return Response(serializer.data)
-        else:
-            model = Book.objects.all()
-            serializer = BookSerializer(model, many=True)
-            return Response(serializer.data)
+class CategoryCreateView(CreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = CategorySerializer
 
-    def put(self, request, *args, **kwargs):
-        model = self.get_object(kwargs.get("pk"))
-        serializer = BookSerializer(data=request.data, instance=model)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+class CategoryUpdateView(UpdateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
-    def post(self, request):
-        serializer = BookSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+########################################## 
+class BookListView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
 
-    def delete(self, request, *args, **kwargs):
-        model = self.get_object(kwargs.get("pk"))
-        model.delete()
-        return Response({"state": "deleted"})
+class BookRetrieveView(RetrieveAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookDestroyView(DestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookCreateView(CreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookUpdateView(UpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer 

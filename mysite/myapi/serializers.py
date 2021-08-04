@@ -18,7 +18,6 @@ class AuthorSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-
 class CategorySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100, allow_null=False, allow_blank=False)
@@ -30,7 +29,6 @@ class CategorySerializer(serializers.Serializer):
         instance.name = validated_data.get('name', instance.name)
         instance.save()
         return instance
-
 
 class BookSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
