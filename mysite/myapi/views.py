@@ -46,25 +46,25 @@ class AuthorView(APIView):
         author.delete()
         return Response({"state": "deleted"})
 
-class CategoryViewSet(APIView):
+class CategoryView(APIView):
 
     def get_object(self, pk):
-         try:
+        try:
             model = Category.objects.get(pk=pk)
-         except Exception:
+        except Exception:
             return NotFound("Ma'lumot mavjud emas")
 
-         return model
+        return model
 
     def get(self, request, *args, **kwargs):
-         if kwargs.get("pk"):
+        if kwargs.get("pk"):
             model = self.get_object(kwargs.get("pk"))
             serializer = CategorySerializer(model, many=False)
             return Response(serializer.data)
-         else:
-             model = Category.objects.all()
-             serializer = CategorySerializer(model, many=True)
-             return Response(serializer.data)
+        else:
+            model = Category.objects.all()
+            serializer = CategorySerializer(model, many=True)
+            return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
         model = self.get_object(kwargs.get("pk"))
@@ -85,7 +85,7 @@ class CategoryViewSet(APIView):
         return Response({"state":"deleted"})
 
 
-class BookViewSet(APIView):
+class BookView(APIView):
     def get_object(self, pk):
             try:
                 model = Book.objects.get(pk=pk)
@@ -95,14 +95,14 @@ class BookViewSet(APIView):
             return model
 
     def get(self, request, *args, **kwargs):
-            if kwargs.get("pk"):
-                model = self.get_object(kwargs.get("pk"))
-                serializer = BookSerializer(model, many=False)
-                return Response(serializer.data)
-            else:
-                model = Book.objects.all()
-                serializer = BookSerializer(model, many=True)
-                return Response(serializer.data)
+        if kwargs.get("pk"):
+            model = self.get_object(kwargs.get("pk"))
+            serializer = BookSerializer(model, many=False)
+            return Response(serializer.data)
+        else:
+            model = Book.objects.all()
+            serializer = BookSerializer(model, many=True)
+            return Response(serializer.data)
 
     def put(self, request, *args, **kwargs):
         model = self.get_object(kwargs.get("pk"))

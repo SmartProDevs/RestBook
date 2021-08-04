@@ -20,7 +20,7 @@ class AuthorSerializer(serializers.Serializer):
 
 
 class CategorySerializer(serializers.Serializer):
-
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100, allow_null=False, allow_blank=False)
 
     def create(self, validated_data):
@@ -33,7 +33,7 @@ class CategorySerializer(serializers.Serializer):
 
 
 class BookSerializer(serializers.Serializer):
-
+    id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100, allow_null=False, allow_blank=False)
     description = serializers.CharField(max_length=100, allow_null=False, allow_blank=False)
     category_id = serializers.IntegerField(allow_null=True)
