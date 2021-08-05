@@ -22,7 +22,9 @@ urlpatterns = [
     ##################################################################
 
     path('authors/create/', AuthorCreateView.as_view(), name="author-create"),
-    path('authors/list/', AuthorListView.as_view(), name="author-list"),
+
+    path('authors/list/', AuthorView.as_view(), name="author-list"),
+
     path('authors/<int:pk>/retrieve/', AuthorRetrieveView.as_view(), name="author-retrieve"),
     path('authors/<int:pk>/update/', AuthorUpdateView.as_view(), name="author-update"),
     path('authors/<int:pk>/destroy/', AuthorDestroyView.as_view(), name="author-destroy"),
@@ -34,8 +36,8 @@ urlpatterns = [
     path('categories/<int:pk>/destroy/', CategoryDestroyView.as_view(), name="category-destroy"),
 
     path('books/create/', BookCreateView.as_view(), name="book-create"),
-    path('books/list/', BookListView.as_view(), name="book-list"),
-    path('books/<int:pk>/retrieve/', BookRetrieveView.as_view(), name="book-retrieve"),
+    path('books/list/', BookView.as_view(), name="book-list"),
+    path('books/<int:pk>/retrieve/', BookView.as_view(), name="book-retrieve"),
     path('books/<int:pk>/update/', BookUpdateView.as_view(), name="book-update"),
     path('books/<int:pk>/destroy/', BookDestroyView.as_view(), name="book-destroy"),
 
